@@ -1,19 +1,29 @@
 <template>
   <div>
-    <QuestionCard
+    <div id="card">
+      <QuestionCard
       :question="currentQuestion"
       :onAnswer="checkAnswer"
     />
+    </div>
+    <div id="list">
+      <QuestionsList
+        :questions="questions"
+        :thisQuestionIndex="currentQuestionIndex"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   import data from "../../db"
   import QuestionCard from "./QuestionCard"
+  import QuestionsList from './QuestionsList'
   export default {
     name: 'Game',
     components: {
-      QuestionCard
+      QuestionCard,
+      QuestionsList
     },
     data () {
       return {
@@ -45,11 +55,12 @@
 </script>
 
 <style scoped>
-.answer{
-  width: 200px;
-  height: 50px;
-  border: solid 1px black;
-  display: inline-block;
-  margin: 10px;
-}
+  #card{
+    width: 70%;
+    display: inline-table;
+  }
+  #list{
+    width: 17%;
+    display: inline-table;
+  }
 </style>

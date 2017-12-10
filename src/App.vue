@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <Game />
+    <div id="game"><Game /></div>
   </div>
 </template>
 
 <script>
   import Game from './components/Game'
-  import QuestionCard from './components/QuestionCard'
 export default {
     name: 'app',
     components: {
@@ -23,6 +21,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 </style>
