@@ -9,7 +9,7 @@
     <div id="list">
       <QuestionsList
         :questions="questions"
-        :thisQuestionIndex="currentQuestionIndex"
+        :currentRound="currentRound"
       />
     </div>
   </div>
@@ -19,18 +19,23 @@
   import data from "../../db"
   import QuestionCard from "./QuestionCard"
   import QuestionsList from './QuestionsList'
-  //import router from './../router'
+  import {mapGetters, mapMutations} from 'vuex'
+
+  const STATUSES = {
+    'NOT_STARTED': 'not started',
+    'PLAYING': 'playing',
+    'WON': 'won',
+    'LOST': 'lost',
+  }
+
   export default {
     name: 'Game',
+    created(){
+      this.$store.dispatch('initGame')
+    },
     components: {
       QuestionCard,
       QuestionsList
-    },
-    data () {
-      return {
-        questions: data.questions,
-        currentQuestionIndex: 0,
-      }
     },
     computed: {
       answers: function(){
@@ -40,20 +45,26 @@
         ]
         return answers
       },
-      currentQuestion: function(){
-        return this.questions[this.currentQuestionIndex]
-      }
+     /* currentQuestion: function(){
+        return this.questions[this.currentRound]
+      },*/
+      ...mapGetters({
+          currentQuestion: 'currentQuestion',
+          questions: 'questions',
+          status: 'status',
+          currentRound: 'currentRound'
+      })
     },
     methods: {
-      checkAnswer: function(answer){
-        const isAnswerCorrect = this.currentQuestion.correct_answer === answer
-        if (isAnswerCorrect){
-          if(this.questions.length === this.currentQuestionIndex + 1){
-            this.$router.push({path: '/won'});
-          }else{
-            this.currentQuestionIndex++
-          }
-        }else{
+      ...mapMutations({
+        checkAnswer: 'checkAnswer'
+      })
+    },
+    watch: {
+      status: function(value, oldValue){
+        if(value === STATUSES.WON){
+          this.$router.push({path: '/won'});
+        }else if(value === STATUSES.LOST){
           this.$router.push({path: '/lost'});
         }
       }
