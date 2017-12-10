@@ -7,6 +7,7 @@
 
 <script>
   import Game from './components/Game'
+  import QuestionCard from './components/QuestionCard'
 export default {
     name: 'app',
     components: {

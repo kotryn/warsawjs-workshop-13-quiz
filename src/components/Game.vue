@@ -1,37 +1,55 @@
 <template>
   <div>
-    <h3>Pytanie?</h3>
-    <ol>
-      <li v-for="answer in answers">
-        {{answer}}
-      </li>
-    </ol>
+    <QuestionCard
+      :question="currentQuestion"
+      :onAnswer="checkAnswer"
+    />
   </div>
 </template>
 
 <script>
   import data from "../../db"
+  import QuestionCard from "./QuestionCard"
   export default {
     name: 'Game',
+    components: {
+      QuestionCard
+    },
     data () {
       return {
         questions: data.questions,
-        firstQuestion: data.questions[0]
+        currentQuestionIndex: 0,
       }
     },
     computed: {
       answers: function(){
         const answers = [
-          ...this.firstQuestion.incorrect_answers,
-          this.firstQuestion.correct_answer
+          ...this.currentQuestion.incorrect_answers,
+          this.currentQuestion.correct_answer
         ]
         return answers
+      },
+      currentQuestion: function(){
+        return this.questions[this.currentQuestionIndex]
+      }
+    },
+    methods: {
+      checkAnswer: function(answer){
+        const isAnswerCorrect = this.currentQuestion.correct_answer === answer
+        if (isAnswerCorrect){
+          this.currentQuestionIndex++
+        }
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.answer{
+  width: 200px;
+  height: 50px;
+  border: solid 1px black;
+  display: inline-block;
+  margin: 10px;
+}
 </style>
