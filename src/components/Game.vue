@@ -19,6 +19,7 @@
   import data from "../../db"
   import QuestionCard from "./QuestionCard"
   import QuestionsList from './QuestionsList'
+  //import router from './../router'
   export default {
     name: 'Game',
     components: {
@@ -47,7 +48,13 @@
       checkAnswer: function(answer){
         const isAnswerCorrect = this.currentQuestion.correct_answer === answer
         if (isAnswerCorrect){
-          this.currentQuestionIndex++
+          if(this.questions.length === this.currentQuestionIndex + 1){
+            this.$router.push({path: '/won'});
+          }else{
+            this.currentQuestionIndex++
+          }
+        }else{
+          this.$router.push({path: '/lost'});
         }
       }
     }
