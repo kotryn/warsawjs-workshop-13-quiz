@@ -9,7 +9,7 @@
     <div id="list">
       <QuestionsList
         :questions="questions"
-        :currentRound="currentRound"
+        :thisQuestionIndex="currentRound"
       />
     </div>
   </div>
