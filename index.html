@@ -6,35 +6,6 @@
     <title>warsawjs-workshop-13-quiz</title>
   </head>
   <body>
-  <div id="app">
-    <h1 :class="{invalid: isInvalid}">{{message}}</h1>
-    <ol>
-      <li v-for="(item, index) in items">
-        {{item}} - {{index}}
-      </li>
-    </ol>
-    <input type="text" v-model="message" />
-    <button :disabled="isInvalid">submit</button>
-  </div>
-
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        message: 'hello Vue',
-        items: ['yellow', 'red', 'green'],
-      },
-      computed: {
-        isInvalid: function(){
-          return this.message.length <= 3
-        }
-      }
-    })
-  </script>
-  <style>
-    .invalid{
-      color: red;
-    }
-  </style>
+  <div id="app"></div>
   </body>
 </html>
