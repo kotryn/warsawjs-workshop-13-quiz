@@ -1,4 +1,4 @@
-# warsawjs-workshop-13-quiz
+# warsawjs-workshop-13-quiz :hamster:
 
 > A Vue.js project
 
